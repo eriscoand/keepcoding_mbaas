@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WTr-km-IDr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WTr-km-IDr">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
         <!--Main Time Line-->
         <scene sceneID="DSd-M8-OhI">
             <objects>
-                <tableViewController id="93k-iG-gRG" customClass="MainTimeLine" customModule="PracticaBoot4" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="93k-iG-gRG" customClass="MainTimeLine" customModule="KeepcodingMBaas" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="LpH-cm-hVQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -56,7 +56,7 @@
         <!--Title-->
         <scene sceneID="8Bj-Bn-m5H">
             <objects>
-                <tableViewController id="fz7-Mj-aJx" customClass="AuthorPostList" customModule="PracticaBoot4" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="fz7-Mj-aJx" customClass="AuthorPostList" customModule="KeepcodingMBaas" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0lP-ts-4C1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -86,6 +86,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="tEj-1A-QMc">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                 </tableViewController>
@@ -96,7 +97,7 @@
         <!--Title-->
         <scene sceneID="IjY-QI-dXU">
             <objects>
-                <viewController id="Itr-Rl-A1y" customClass="NewPostController" customModule="PracticaBoot4" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Itr-Rl-A1y" customClass="NewPostController" customModule="KeepcodingMBaas" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cTT-H6-D0y"/>
                         <viewControllerLayoutGuide type="bottom" id="Fmi-pa-Jco"/>
@@ -121,13 +122,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descripción" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfI-rb-XXj">
-                                <rect key="frame" x="16" y="196" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="196" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="titulo del post" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WvL-11-TYV">
-                                <rect key="frame" x="16" y="234.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="235" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -147,11 +148,28 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M8z-ex-o2m">
                                 <rect key="frame" x="16" y="361" width="343" height="262"/>
                             </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Latitud" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mNl-Dh-JeF">
+                                <rect key="frame" x="184" y="276" width="175" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="175" id="5Fe-EU-mAi"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Longitud" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DBa-vJ-tei">
+                                <rect key="frame" x="184" y="314" width="175" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hfI-rb-XXj" firstAttribute="trailing" secondItem="dId-mV-sZu" secondAttribute="trailing" id="6cm-zI-9Cl"/>
                             <constraint firstItem="hfI-rb-XXj" firstAttribute="leading" secondItem="dId-mV-sZu" secondAttribute="leading" id="6vJ-Mw-QHQ"/>
+                            <constraint firstItem="DBa-vJ-tei" firstAttribute="top" secondItem="mNl-Dh-JeF" secondAttribute="bottom" constant="8" id="Am1-tO-sVs"/>
+                            <constraint firstItem="mNl-Dh-JeF" firstAttribute="trailing" secondItem="WvL-11-TYV" secondAttribute="trailing" id="BRg-A0-FzR"/>
                             <constraint firstItem="Q4q-Wo-vUh" firstAttribute="leading" secondItem="dId-mV-sZu" secondAttribute="leading" id="CDI-Oq-uIm"/>
                             <constraint firstItem="Tbd-tI-Ip8" firstAttribute="leading" secondItem="Uyp-v1-iTO" secondAttribute="trailing" constant="41" id="FMP-ou-Lgf"/>
                             <constraint firstItem="WvL-11-TYV" firstAttribute="top" secondItem="hfI-rb-XXj" secondAttribute="bottom" constant="18" id="G4k-X7-0kk"/>
@@ -162,11 +180,14 @@
                             <constraint firstItem="Uyp-v1-iTO" firstAttribute="leading" secondItem="WvL-11-TYV" secondAttribute="leading" id="TQL-RJ-Dov"/>
                             <constraint firstItem="Q4q-Wo-vUh" firstAttribute="trailing" secondItem="dId-mV-sZu" secondAttribute="trailing" id="Ufk-ha-5YV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dId-mV-sZu" secondAttribute="trailing" id="V2a-pw-Gvg"/>
+                            <constraint firstItem="mNl-Dh-JeF" firstAttribute="top" secondItem="WvL-11-TYV" secondAttribute="bottom" constant="11.5" id="Z6S-eM-Wwk"/>
                             <constraint firstItem="hfI-rb-XXj" firstAttribute="top" secondItem="Q4q-Wo-vUh" secondAttribute="bottom" constant="19" id="ZUg-Xb-c2W"/>
                             <constraint firstItem="Uyp-v1-iTO" firstAttribute="top" secondItem="WvL-11-TYV" secondAttribute="bottom" constant="43.5" id="d7C-du-rsg"/>
                             <constraint firstItem="dId-mV-sZu" firstAttribute="leading" secondItem="KWB-rI-14l" secondAttribute="leadingMargin" id="fac-Sd-IO4"/>
+                            <constraint firstItem="mNl-Dh-JeF" firstAttribute="leading" secondItem="DBa-vJ-tei" secondAttribute="leading" id="fe4-9d-eRm"/>
                             <constraint firstItem="M8z-ex-o2m" firstAttribute="trailing" secondItem="KWB-rI-14l" secondAttribute="trailingMargin" id="fhM-Si-r5P"/>
                             <constraint firstItem="WvL-11-TYV" firstAttribute="trailing" secondItem="hfI-rb-XXj" secondAttribute="trailing" id="kqr-Af-vGw"/>
+                            <constraint firstItem="mNl-Dh-JeF" firstAttribute="trailing" secondItem="DBa-vJ-tei" secondAttribute="trailing" id="mdn-mV-vfX"/>
                             <constraint firstItem="dId-mV-sZu" firstAttribute="top" secondItem="cTT-H6-D0y" secondAttribute="bottom" constant="40" id="oF8-0u-WRH"/>
                             <constraint firstItem="WvL-11-TYV" firstAttribute="leading" secondItem="hfI-rb-XXj" secondAttribute="leading" id="tcf-AL-3ba"/>
                             <constraint firstItem="Fmi-pa-Jco" firstAttribute="top" secondItem="M8z-ex-o2m" secondAttribute="bottom" id="yCy-mc-BqZ"/>
@@ -190,6 +211,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imagePost" destination="M8z-ex-o2m" id="wjb-5d-bKt"/>
+                        <outlet property="latPostTxt" destination="mNl-Dh-JeF" id="MMK-RG-msV"/>
+                        <outlet property="lngPostTxt" destination="DBa-vJ-tei" id="CqI-Mu-8Qj"/>
                         <outlet property="textPostTxt" destination="WvL-11-TYV" id="aKg-ek-ECE"/>
                         <outlet property="titlePostTxt" destination="Q4q-Wo-vUh" id="xJf-xi-iaq"/>
                     </connections>
@@ -223,7 +246,7 @@
         <!--Post Review-->
         <scene sceneID="m7W-i6-yYA">
             <objects>
-                <viewController id="RLF-Vz-fF2" customClass="PostReview" customModule="PracticaBoot4" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RLF-Vz-fF2" customClass="PostReview" customModule="KeepcodingMBaas" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sx0-PK-lHo"/>
                         <viewControllerLayoutGuide type="bottom" id="PMD-nw-9gX"/>

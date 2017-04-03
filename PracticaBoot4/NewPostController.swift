@@ -7,12 +7,25 @@
 //
 
 import UIKit
+import CoreLocation
+import Firebase
 
 class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
+    let rootRef = FIRDatabase.database().reference().child(Post.className)
+    
+    var locationEnabled = false
+    var timer: Timer?
+    let locManager = CLLocationManager()
+    var loc: CLLocation?
+    var coor: CLLocationCoordinate2D?
+    var locationError: NSError?
+    
     @IBOutlet weak var titlePostTxt: UITextField!
     @IBOutlet weak var textPostTxt: UITextField!
     @IBOutlet weak var imagePost: UIImageView!
+    @IBOutlet weak var latPostTxt: UITextField!
+    @IBOutlet weak var lngPostTxt: UITextField!
     
     var isReadyToPublish: Bool = false
     var imageCaptured: UIImage! {
@@ -24,6 +37,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        handleLocation()
         // Do any additional setup after loading the view.
     }
 
@@ -40,7 +54,15 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     }
 
     @IBAction func savePostInCloud(_ sender: Any) {
-        // preparado para implementar codigo que persita en el cloud 
+        
+        let key = rootRef.childByAutoId().key
+        
+        let post = Post(title: "TEST", description: "TEST2", photo: "TEST3", lat: "TEST4", lng: "TEST5", userRef: nil)
+        
+        let recordInFb = ["\(key)": post.toDict()]
+        
+        rootRef.updateChildValues(recordInFb)
+        
     }
     /*
     // MARK: - Navigation
@@ -105,6 +127,93 @@ extension NewPostController {
     
 }
 
+extension NewPostController: CLLocationManagerDelegate {
+    
+    // MARK: - Delegates
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        if (error as NSError).code == CLError.Code.locationUnknown.rawValue {
+            return
+        }
+        locationError = error as NSError?
+        stopLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        loc = locations.last!
+        
+        if let l = loc {
+            latPostTxt.text = String(format: "%.8f", l.coordinate.latitude)
+            lngPostTxt.text = String(format: "%.8f", l.coordinate.longitude)
+        }
+        
+        locationError = nil
+    }
+    
+    // MARK: - Utils
+    
+    //Is Location authorized?
+    func handleLocation(){
+        
+        let authStatus = CLLocationManager.authorizationStatus()
+        if authStatus == .notDetermined {
+            locManager.requestWhenInUseAuthorization()
+        }
+        
+        if authStatus == .denied || authStatus == .restricted {
+            locationDisabledAlert()
+            return
+        }
+        
+        startLocation()
+        
+    }
+    
+    //Start location manager
+    func startLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            
+            locManager.delegate = self
+            locManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locManager.startUpdatingLocation()
+            locationEnabled = true
+            
+            timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(NewPostController.locationTimedOut), userInfo: nil, repeats: false)
+        }
+    }
+    
+    //Stop location manager if error
+    func stopLocation() {
+        if locationEnabled {
+            if let timer = timer {
+                timer.invalidate()
+            }
+            locManager.stopUpdatingLocation()
+            locManager.delegate = nil
+            locationEnabled = false
+        }
+    }
+    
+    //Alert if location is disabled
+    func locationDisabledAlert() {
+        let alert = UIAlertController(title: "Location Alert", message: "Locations are disabled!", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "👍", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    //Alert if location has timed out
+    func locationTimedOut() {
+        if loc == nil {
+            stopLocation()
+            let alert = UIAlertController(title: "Location Alert", message: "Location timed out!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "👍", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+}
 
 
 

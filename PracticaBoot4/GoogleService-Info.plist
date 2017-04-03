@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>41904260021-hvcc58f5ho06sh953trs3adjfot9gghq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.41904260021-hvcc58f5ho06sh953trs3adjfot9gghq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD4E1EmfeOupLEzigSi5pUTCluIP8xpwwg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>41904260021</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>and.erisco.keepcodingmbaas</string>
+	<key>PROJECT_ID</key>
+	<string>practicambaas</string>
+	<key>STORAGE_BUCKET</key>
+	<string>practicambaas.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:41904260021:ios:6083b17dff0e3302</string>
+	<key>DATABASE_URL</key>
+	<string>https://practicambaas.firebaseio.com</string>
+</dict>
+</plist>

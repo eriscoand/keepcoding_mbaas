@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTimeLine: UITableViewController {
 
-    var model = ["post1", "post2"]
+    var model: [Post] = []
     let cellIdentier = "POSTSCELL"
+    let rootRef = FIRDatabase.database().reference().child(Post.className)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,28 @@ class MainTimeLine: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.refreshControl?.addTarget(self, action: #selector(hadleRefresh(_:)), for: UIControlEvents.valueChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        rootRef.observe(FIRDataEventType.value, with: { (snapshot) in
+            
+            self.model = []
+            
+            for child in snapshot.children {
+                let post = Post.init(snapshot: child as? FIRDataSnapshot)
+                self.model.append(post)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+            
+        }) { (error) in
+            
+        }
+        
     }
     
     func hadleRefresh(_ refreshControl: UIRefreshControl) {
@@ -35,12 +59,10 @@ class MainTimeLine: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return model.count
     }
 
@@ -48,12 +70,11 @@ class MainTimeLine: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentier, for: indexPath)
 
-        cell.textLabel?.text = model[indexPath.row]
+        cell.textLabel?.text = model[indexPath.row].title
 
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         performSegue(withIdentifier: "ShowRatingPost", sender: indexPath)
     }
 
