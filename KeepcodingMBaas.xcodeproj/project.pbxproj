@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2DE60B87DC57C30B20EBA07A /* Pods_PracticaBoot4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5D2F0456A022FA5FC68B5A /* Pods_PracticaBoot4.framework */; };
 		33B75E3C1E92DBE500B6DCCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33B75E3B1E92DBE500B6DCCC /* GoogleService-Info.plist */; };
 		33B75E3F1E92DCDE00B6DCCC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E3E1E92DCDE00B6DCCC /* Post.swift */; };
 		33B75E421E92E57E00B6DCCC /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E411E92E57E00B6DCCC /* NSObject.swift */; };
@@ -19,11 +18,11 @@
 		5D931D031E83F67C005051E9 /* PostReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D931D021E83F67C005051E9 /* PostReview.swift */; };
 		5D931D051E83F773005051E9 /* AuthorPostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D931D041E83F773005051E9 /* AuthorPostList.swift */; };
 		5D931D071E83F7BA005051E9 /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D931D061E83F7BA005051E9 /* NewPostController.swift */; };
+		AEDB287DBD2698F894249467 /* Pods_KeepcodingMBaas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C7AAAAB5BED70B0CFF64D6 /* Pods_KeepcodingMBaas.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D5D2F0456A022FA5FC68B5A /* Pods_PracticaBoot4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PracticaBoot4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1E6DB852D3E004E24A8C004D /* Pods-PracticaBoot4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PracticaBoot4.release.xcconfig"; path = "Pods/Target Support Files/Pods-PracticaBoot4/Pods-PracticaBoot4.release.xcconfig"; sourceTree = "<group>"; };
+		11C7AAAAB5BED70B0CFF64D6 /* Pods_KeepcodingMBaas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KeepcodingMBaas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33B75E3B1E92DBE500B6DCCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33B75E3E1E92DCDE00B6DCCC /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		33B75E411E92E57E00B6DCCC /* NSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
@@ -37,7 +36,8 @@
 		5D931D021E83F67C005051E9 /* PostReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostReview.swift; sourceTree = "<group>"; };
 		5D931D041E83F773005051E9 /* AuthorPostList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorPostList.swift; sourceTree = "<group>"; };
 		5D931D061E83F7BA005051E9 /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostController.swift; sourceTree = "<group>"; };
-		C7B80266ACA827A8E32D9463 /* Pods-PracticaBoot4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PracticaBoot4.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PracticaBoot4/Pods-PracticaBoot4.debug.xcconfig"; sourceTree = "<group>"; };
+		60012FEB6021D773E9874A4D /* Pods-KeepcodingMBaas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepcodingMBaas.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeepcodingMBaas/Pods-KeepcodingMBaas.release.xcconfig"; sourceTree = "<group>"; };
+		7DE9BA1F3D11F3FD2B8485A0 /* Pods-KeepcodingMBaas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeepcodingMBaas.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KeepcodingMBaas/Pods-KeepcodingMBaas.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DE60B87DC57C30B20EBA07A /* Pods_PracticaBoot4.framework in Frameworks */,
+				AEDB287DBD2698F894249467 /* Pods_KeepcodingMBaas.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,8 +157,8 @@
 		6A082171C8DDE13C5AD622A9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C7B80266ACA827A8E32D9463 /* Pods-PracticaBoot4.debug.xcconfig */,
-				1E6DB852D3E004E24A8C004D /* Pods-PracticaBoot4.release.xcconfig */,
+				7DE9BA1F3D11F3FD2B8485A0 /* Pods-KeepcodingMBaas.debug.xcconfig */,
+				60012FEB6021D773E9874A4D /* Pods-KeepcodingMBaas.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -166,7 +166,7 @@
 		E3F08083604F5C1F8A34DCC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D5D2F0456A022FA5FC68B5A /* Pods_PracticaBoot4.framework */,
+				11C7AAAAB5BED70B0CFF64D6 /* Pods_KeepcodingMBaas.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PracticaBoot4/Pods-PracticaBoot4-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KeepcodingMBaas/Pods-KeepcodingMBaas-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FB307BD972FB98F13BC95971 /* [CP] Copy Pods Resources */ = {
@@ -286,7 +286,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PracticaBoot4/Pods-PracticaBoot4-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KeepcodingMBaas/Pods-KeepcodingMBaas-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -415,11 +415,12 @@
 		};
 		5D931CF51E83EEEA005051E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C7B80266ACA827A8E32D9463 /* Pods-PracticaBoot4.debug.xcconfig */;
+			baseConfigurationReference = 7DE9BA1F3D11F3FD2B8485A0 /* Pods-KeepcodingMBaas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = PracticaBoot4/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = and.erisco.keepcodingmbaas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,11 +430,12 @@
 		};
 		5D931CF61E83EEEA005051E9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1E6DB852D3E004E24A8C004D /* Pods-PracticaBoot4.release.xcconfig */;
+			baseConfigurationReference = 60012FEB6021D773E9874A4D /* Pods-KeepcodingMBaas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = PracticaBoot4/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = and.erisco.keepcodingmbaas;
 				PRODUCT_NAME = "$(TARGET_NAME)";

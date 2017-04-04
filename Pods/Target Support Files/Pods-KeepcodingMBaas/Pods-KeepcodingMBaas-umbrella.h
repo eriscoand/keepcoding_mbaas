@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_PracticaBoot4VersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_PracticaBoot4VersionString[];
+FOUNDATION_EXPORT double Pods_KeepcodingMBaasVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_KeepcodingMBaasVersionString[];
 

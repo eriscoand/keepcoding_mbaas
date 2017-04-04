@@ -14,6 +14,9 @@ class PostReview: UIViewController {
     @IBOutlet weak var imagePost: UIImageView!
     @IBOutlet weak var postTxt: UITextField!
     @IBOutlet weak var titleTxt: UITextField!
+    
+    var post: Post!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

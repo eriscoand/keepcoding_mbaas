@@ -12,7 +12,7 @@ class AuthorPostList: UITableViewController {
 
     let cellIdentifier = "POSTAUTOR"
     
-    var model = ["test1", "test2"]
+    var model: [Post] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +48,7 @@ class AuthorPostList: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel?.text = model[indexPath.row]
+        cell.textLabel?.text = model[indexPath.row].title
     
         return cell
     }

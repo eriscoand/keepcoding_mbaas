@@ -16,15 +16,17 @@ class Post: NSObject{
     var photo: String
     var lat: String
     var lng: String
+    var published: Bool
     var userRef: FIRDatabaseReference?
     var cloudRef: FIRDatabaseReference?
     
-    init(title: String, description: String, photo: String, lat: String, lng: String, userRef: FIRDatabaseReference?){
+    init(title: String, description: String, photo: String, lat: String, lng: String, published: Bool, userRef: FIRDatabaseReference?){
         self.title = title
         self.desc = description
         self.photo = photo
         self.lat = lat
         self.lng = lng
+        self.published = published
         self.userRef = userRef
         self.cloudRef = nil
     }
@@ -36,11 +38,12 @@ class Post: NSObject{
         self.photo = (snapshot?.value as? [String:Any])?["photo"] as! String
         self.lat = (snapshot?.value as? [String:Any])?["lat"] as! String
         self.lng = (snapshot?.value as? [String:Any])?["lng"] as! String
+        self.published = (snapshot?.value as? [String:Any])?["published"] as! Bool
         self.userRef = (snapshot?.value as? [String:Any])?["user"] as? FIRDatabaseReference
     }
     
     convenience override init(){
-        self.init(title: "", description: "", photo: "", lat: "", lng: "", userRef: nil)
+        self.init(title: "", description: "", photo: "", lat: "", lng: "", published: false, userRef: nil)
     }
     
 }

@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/erisco/dev/KEEPCODING/MBaas/keepcoding_mbaas/KeepcodingMBaas.xcodeproj">
+      location = "group:KeepcodingMBaas.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

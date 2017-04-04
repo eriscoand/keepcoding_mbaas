@@ -21,6 +21,8 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     var coor: CLLocationCoordinate2D?
     var locationError: NSError?
     
+    let storage = FIRStorage.storage()
+    
     @IBOutlet weak var titlePostTxt: UITextField!
     @IBOutlet weak var textPostTxt: UITextField!
     @IBOutlet weak var imagePost: UIImageView!
@@ -38,7 +40,6 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         super.viewDidLoad()
 
         handleLocation()
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,11 +58,43 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         let key = rootRef.childByAutoId().key
         
-        let post = Post(title: "TEST", description: "TEST2", photo: "TEST3", lat: "TEST4", lng: "TEST5", userRef: nil)
+        let postImages = storage.reference().child(Post.className)
         
-        let recordInFb = ["\(key)": post.toDict()]
+        if let image = imagePost.image,
+        let data = UIImagePNGRepresentation(image) as Data? {
+            
+            let newImage = postImages.child(UUID().uuidString)
+            
+            newImage.put(data, metadata: nil) { (metadata, error) in
+                guard let metadata = metadata else {
+                    return
+                }
+                if let downloadURL = metadata.downloadURL() {
+                    let post = Post(title: self.titlePostTxt.text!,
+                                    description: self.textPostTxt.text!,
+                                    photo: downloadURL.description,
+                                    lat: self.latPostTxt.text!,
+                                    lng: self.lngPostTxt.text!,
+                                    published: self.isReadyToPublish,
+                                    userRef: nil)
+                    let recordInFb = ["\(key)": post.toDict()]
+                    self.rootRef.updateChildValues(recordInFb)
+                }
+            }
+  
+        }else{
+            let post = Post(title: titlePostTxt.text!,
+                            description: textPostTxt.text!,
+                            photo: "",
+                            lat: latPostTxt.text!,
+                            lng: lngPostTxt.text!,
+                            published: self.isReadyToPublish,
+                            userRef: nil)
+            let recordInFb = ["\(key)": post.toDict()]
+            rootRef.updateChildValues(recordInFb)
+        }
         
-        rootRef.updateChildValues(recordInFb)
+        
         
     }
     /*
