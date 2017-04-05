@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 
+// MARK: - Init
+
 class Post: NSObject{
     
     var title: String
@@ -19,6 +21,7 @@ class Post: NSObject{
     var useruid: String
     var published: Bool
     var rating: Int
+    var creationDate: String
     var userRef: FIRDatabaseReference?
     var cloudRef: FIRDatabaseReference?
     
@@ -32,6 +35,7 @@ class Post: NSObject{
         self.published = published
         self.rating = rating
         self.userRef = userRef
+        self.creationDate = Date().description
         self.cloudRef = nil
     }
     
@@ -44,6 +48,7 @@ class Post: NSObject{
         self.useruid = (snapshot?.value as? [String:Any])?["useruid"] as! String
         self.published = (snapshot?.value as? [String:Any])?["published"] as! Bool
         self.rating = (snapshot?.value as? [String:Any])?["rating"] as! Int
+        self.creationDate = (snapshot?.value as? [String:Any])?["creationDate"] as! String
         self.userRef = (snapshot?.value as? [String:Any])?["user"] as? FIRDatabaseReference
         self.cloudRef = snapshot?.ref
     }
@@ -54,15 +59,48 @@ class Post: NSObject{
     
 }
 
+//MARK: - Firebase Database Model
+
 extension Post{
-    func toDict() -> [String:Any] {
-        var dict = [String:Any]()
-        let otherSelf = Mirror(reflecting: self)
-        for child in otherSelf.children {
-            if let key = child.label {
-                dict[key] = child.value
-            }
-        }
-        return dict
+    
+    public static func getReference() -> FIRDatabaseReference{
+        return FIRDatabase.database()
+            .reference()
+            .child(Post.className)
     }
+    
+    public static func getAllPostReference() -> FIRDatabaseQuery{
+        //TODO - AQUI SE TENDRIA QUE HACER EL SORT
+        return getReference()
+    }
+    
+    public static func getUserPostReference(forUser uuid: String) -> FIRDatabaseQuery{
+        let ref = Post.getAllPostReference()
+        return ref.queryOrdered(byChild: "useruid").queryEqual(toValue : uuid)
+    }
+    
+    public static func getPosts(reference: FIRDatabaseQuery, completion: @escaping ([Post]) -> ()){
+        
+        var model: [Post] = []
+        
+        reference.observe(FIRDataEventType.value, with: { (snapshot) in
+            
+            for child in snapshot.children {
+                let post = Post.init(snapshot: child as? FIRDataSnapshot)
+                model.append(post)
+                
+            }
+            
+            //TODO - ESTO LO TENDRIA QUE HACER EL BACKEND !!
+            model.sort(by: { $0.creationDate > $1.creationDate })
+            DispatchQueue.main.async {
+                completion(model)
+            }
+            
+        }) { (error) in
+            completion(model)
+        }
+        
+    }
+    
 }

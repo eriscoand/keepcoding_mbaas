@@ -11,10 +11,9 @@ import Firebase
 
 class AuthorPostList: UITableViewController {
 
-    
     var model: [Post] = []
     let cellIdentifier = "POSTAUTOR"
-    let rootRef = FIRDatabase.database().reference().child(Post.className)
+    let db = Post.getUserPostReference(forUser: (FIRAuth.auth()?.currentUser?.uid)!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,22 +30,9 @@ class AuthorPostList: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        let useruid = FIRAuth.auth()?.currentUser?.uid
-        let ref = rootRef.queryOrdered(byChild: "useruid").queryEqual(toValue : useruid)
-        
-        ref.observe(FIRDataEventType.value, with: { (snapshot) in
-            self.model = []
-            
-            for child in snapshot.children {
-                let post = Post.init(snapshot: child as? FIRDataSnapshot)
-                self.model.append(post)
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-        }) { (error) in
-            print(error.localizedDescription)
+        Post.getPosts(reference: db) { (model) in
+            self.model = model
+            self.tableView.reloadData()
         }
         
     }

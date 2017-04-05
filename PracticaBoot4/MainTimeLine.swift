@@ -13,7 +13,7 @@ class MainTimeLine: UITableViewController {
 
     var model: [Post] = []
     let cellIdentier = "POSTSCELL"
-    let rootRef = FIRDatabase.database().reference().child(Post.className)
+    let db = Post.getAllPostReference()
     
     @IBOutlet weak var addPost: UIBarButtonItem!
     
@@ -31,21 +31,9 @@ class MainTimeLine: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        rootRef.observe(FIRDataEventType.value, with: { (snapshot) in
-            
-            self.model = []
-            
-            for child in snapshot.children {
-                let post = Post.init(snapshot: child as? FIRDataSnapshot)
-                self.model.append(post)
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-            
-        }) { (error) in
-            
+        Post.getPosts(reference: db) { (model) in
+            self.model = model
+            self.tableView.reloadData()
         }
         
         if let _ = FIRAuth.auth()?.currentUser {

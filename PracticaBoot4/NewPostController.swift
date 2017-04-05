@@ -12,7 +12,7 @@ import Firebase
 
 class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let rootRef = FIRDatabase.database().reference().child(Post.className)
+    let rootRef = Post.getReference()
     
     var locationEnabled = false
     var timer: Timer?
