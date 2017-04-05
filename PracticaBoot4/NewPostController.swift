@@ -60,6 +60,8 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         let postImages = storage.reference().child(Post.className)
         
+        let useruid = FIRAuth.auth()?.currentUser?.uid
+        
         if let image = imagePost.image,
         let data = UIImagePNGRepresentation(image) as Data? {
             
@@ -75,7 +77,9 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
                                     photo: downloadURL.description,
                                     lat: self.latPostTxt.text!,
                                     lng: self.lngPostTxt.text!,
+                                    useruid: useruid!,
                                     published: self.isReadyToPublish,
+                                    rating: 0,
                                     userRef: nil)
                     let recordInFb = ["\(key)": post.toDict()]
                     self.rootRef.updateChildValues(recordInFb)
@@ -88,7 +92,9 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
                             photo: "",
                             lat: latPostTxt.text!,
                             lng: lngPostTxt.text!,
+                            useruid: useruid!,
                             published: self.isReadyToPublish,
+                            rating: 0,
                             userRef: nil)
             let recordInFb = ["\(key)": post.toDict()]
             rootRef.updateChildValues(recordInFb)

@@ -10,6 +10,9 @@
 		33B75E3C1E92DBE500B6DCCC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33B75E3B1E92DBE500B6DCCC /* GoogleService-Info.plist */; };
 		33B75E3F1E92DCDE00B6DCCC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E3E1E92DCDE00B6DCCC /* Post.swift */; };
 		33B75E421E92E57E00B6DCCC /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E411E92E57E00B6DCCC /* NSObject.swift */; };
+		33B75E461E9447BA00B6DCCC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E451E9447BA00B6DCCC /* LoginViewController.swift */; };
+		33B75E481E94556F00B6DCCC /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E471E94556F00B6DCCC /* UIImageView.swift */; };
+		33B75E4A1E94562700B6DCCC /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 33B75E491E94562700B6DCCC /* avatar.png */; };
 		5D931CE61E83EEEA005051E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D931CE51E83EEEA005051E9 /* AppDelegate.swift */; };
 		5D931CED1E83EEEA005051E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D931CEC1E83EEEA005051E9 /* Assets.xcassets */; };
 		5D931CF01E83EEEA005051E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D931CEE1E83EEEA005051E9 /* LaunchScreen.storyboard */; };
@@ -26,6 +29,10 @@
 		33B75E3B1E92DBE500B6DCCC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33B75E3E1E92DCDE00B6DCCC /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		33B75E411E92E57E00B6DCCC /* NSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
+		33B75E451E9447BA00B6DCCC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		33B75E471E94556F00B6DCCC /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		33B75E491E94562700B6DCCC /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
+		33B75E4B1E946A6800B6DCCC /* KeepcodingMBaas.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepcodingMBaas.entitlements; sourceTree = SOURCE_ROOT; };
 		5D931CE21E83EEEA005051E9 /* KeepcodingMBaas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepcodingMBaas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D931CE51E83EEEA005051E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D931CEC1E83EEEA005051E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				33B75E411E92E57E00B6DCCC /* NSObject.swift */,
+				33B75E471E94556F00B6DCCC /* UIImageView.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -89,6 +97,7 @@
 		5D931CE41E83EEEA005051E9 /* KeepcodingMBaas */ = {
 			isa = PBXGroup;
 			children = (
+				33B75E4B1E946A6800B6DCCC /* KeepcodingMBaas.entitlements */,
 				5D931CF71E83F069005051E9 /* AppDelegate */,
 				33B75E3D1E92DCCC00B6DCCC /* Models */,
 				5D931CF81E83F076005051E9 /* ViewControllers */,
@@ -112,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				5D931D001E83F5D1005051E9 /* MainTimeLine.swift */,
+				33B75E451E9447BA00B6DCCC /* LoginViewController.swift */,
 				5D931D081E8414BB005051E9 /* All users */,
 				5D931D091E8414CA005051E9 /* Auth Users */,
 			);
@@ -130,6 +140,7 @@
 		5D931CFB1E83F0A8005051E9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				33B75E491E94562700B6DCCC /* avatar.png */,
 				33B75E3B1E92DBE500B6DCCC /* GoogleService-Info.plist */,
 				5D931CEC1E83EEEA005051E9 /* Assets.xcassets */,
 				5D931CF11E83EEEA005051E9 /* Info.plist */,
@@ -208,6 +219,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 42UB6JE5FK;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -235,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D931CFD1E83F110005051E9 /* TimeLine.storyboard in Resources */,
+				33B75E4A1E94562700B6DCCC /* avatar.png in Resources */,
 				33B75E3C1E92DBE500B6DCCC /* GoogleService-Info.plist in Resources */,
 				5D931CF01E83EEEA005051E9 /* LaunchScreen.storyboard in Resources */,
 				5D931CED1E83EEEA005051E9 /* Assets.xcassets in Resources */,
@@ -297,9 +314,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D931D051E83F773005051E9 /* AuthorPostList.swift in Sources */,
+				33B75E481E94556F00B6DCCC /* UIImageView.swift in Sources */,
 				5D931CE61E83EEEA005051E9 /* AppDelegate.swift in Sources */,
 				5D931D031E83F67C005051E9 /* PostReview.swift in Sources */,
 				33B75E421E92E57E00B6DCCC /* NSObject.swift in Sources */,
+				33B75E461E9447BA00B6DCCC /* LoginViewController.swift in Sources */,
 				33B75E3F1E92DCDE00B6DCCC /* Post.swift in Sources */,
 				5D931D071E83F7BA005051E9 /* NewPostController.swift in Sources */,
 				5D931D011E83F5D1005051E9 /* MainTimeLine.swift in Sources */,
@@ -418,6 +437,7 @@
 			baseConfigurationReference = 7DE9BA1F3D11F3FD2B8485A0 /* Pods-KeepcodingMBaas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeepcodingMBaas.entitlements;
 				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = PracticaBoot4/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -433,6 +453,7 @@
 			baseConfigurationReference = 60012FEB6021D773E9874A4D /* Pods-KeepcodingMBaas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KeepcodingMBaas.entitlements;
 				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = PracticaBoot4/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

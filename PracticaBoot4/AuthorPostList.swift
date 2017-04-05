@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class AuthorPostList: UITableViewController {
 
-    let cellIdentifier = "POSTAUTOR"
     
     var model: [Post] = []
+    let cellIdentifier = "POSTAUTOR"
+    let rootRef = FIRDatabase.database().reference().child(Post.className)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,29 @@ class AuthorPostList: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.refreshControl?.addTarget(self, action: #selector(hadleRefresh(_:)), for: UIControlEvents.valueChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        let useruid = FIRAuth.auth()?.currentUser?.uid
+        let ref = rootRef.queryOrdered(byChild: "useruid").queryEqual(toValue : useruid)
+        
+        ref.observe(FIRDataEventType.value, with: { (snapshot) in
+            self.model = []
+            
+            for child in snapshot.children {
+                let post = Post.init(snapshot: child as? FIRDataSnapshot)
+                self.model.append(post)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
     }
     
     func hadleRefresh(_ refreshControl: UIRefreshControl) {

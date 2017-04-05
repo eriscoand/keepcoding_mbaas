@@ -15,6 +15,8 @@ class MainTimeLine: UITableViewController {
     let cellIdentier = "POSTSCELL"
     let rootRef = FIRDatabase.database().reference().child(Post.className)
     
+    @IBOutlet weak var addPost: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,16 +48,23 @@ class MainTimeLine: UITableViewController {
             
         }
         
+        if let _ = FIRAuth.auth()?.currentUser {
+            addPost.isEnabled = true
+        }else{
+            addPost.isEnabled = false
+        }
+        
     }
     
     func hadleRefresh(_ refreshControl: UIRefreshControl) {
         refreshControl.endRefreshing()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
