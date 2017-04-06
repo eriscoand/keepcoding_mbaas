@@ -13,7 +13,6 @@ class AuthorPostList: UITableViewController {
 
     var model: [Post] = []
     let cellIdentifier = "POSTAUTOR"
-    let db = Post.getUserPostReference(forUser: (FIRAuth.auth()?.currentUser?.uid)!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +21,7 @@ class AuthorPostList: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        //self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.refreshControl?.addTarget(self, action: #selector(hadleRefresh(_:)), for: UIControlEvents.valueChanged)
     }
@@ -30,9 +29,11 @@ class AuthorPostList: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        Post.getPosts(reference: db) { (model) in
-            self.model = model
-            self.tableView.reloadData()
+        if let useruid = FIRAuth.auth()?.currentUser?.uid {
+            PostModel.getAllPostsByUser(useruid: useruid) { (posts) in
+                self.model = posts
+                self.tableView.reloadData()
+            }
         }
         
     }
@@ -59,67 +60,39 @@ class AuthorPostList: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel?.text = model[indexPath.row].title
+        
+        let post = model[indexPath.row]
+        cell.textLabel?.text = post.title
+        if post.photo != "" {
+            cell.imageView?.imageFromServerURL(urlString: post.photo)
+        }
     
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
+        let post = self.model[indexPath.row] as Post
+        
         let publish = UITableViewRowAction(style: .normal, title: "Publicar") { (action, indexPath) in
-            // Codigo para publicar el post
+            post.published = true
+            PostModel.savePost(post: post, imageData: Data(), completion: { (ret) in
+                print(ret.done,ret.message)
+            })
         }
         publish.backgroundColor = UIColor.green
+        
         let deleteRow = UITableViewRowAction(style: .destructive, title: "Eliminar") { (action, indexPath) in
-            // codigo para eliminar
+            PostModel.deletePost(post: post, completion: { (ret) in
+                print(ret.done,ret.message)
+            })
         }
         return [publish, deleteRow]
     }
 
-   
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

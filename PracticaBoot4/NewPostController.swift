@@ -12,8 +12,6 @@ import Firebase
 
 class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let rootRef = Post.getReference()
-    
     var locationEnabled = false
     var timer: Timer?
     let locManager = CLLocationManager()
@@ -28,6 +26,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBOutlet weak var imagePost: UIImageView!
     @IBOutlet weak var latPostTxt: UITextField!
     @IBOutlet weak var lngPostTxt: UITextField!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     var isReadyToPublish: Bool = false
     var imageCaptured: UIImage! {
@@ -56,51 +55,26 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
 
     @IBAction func savePostInCloud(_ sender: Any) {
         
-        let key = rootRef.childByAutoId().key
+        let post = Post(title: self.titlePostTxt.text!,
+                        description: self.textPostTxt.text!,
+                        lat: self.latPostTxt.text!,
+                        lng: self.lngPostTxt.text!,
+                        useruid: (FIRAuth.auth()?.currentUser?.uid.description)!,
+                        published: self.isReadyToPublish,
+                        rating: 0)
         
-        let postImages = storage.reference().child(Post.className)
-        
-        let useruid = FIRAuth.auth()?.currentUser?.uid
-        
+        var data = Data.init()
         if let image = imagePost.image,
-        let data = UIImagePNGRepresentation(image) as Data? {
-            
-            let newImage = postImages.child(UUID().uuidString)
-            
-            newImage.put(data, metadata: nil) { (metadata, error) in
-                guard let metadata = metadata else {
-                    return
-                }
-                if let downloadURL = metadata.downloadURL() {
-                    let post = Post(title: self.titlePostTxt.text!,
-                                    description: self.textPostTxt.text!,
-                                    photo: downloadURL.description,
-                                    lat: self.latPostTxt.text!,
-                                    lng: self.lngPostTxt.text!,
-                                    useruid: useruid!,
-                                    published: self.isReadyToPublish,
-                                    rating: 0,
-                                    userRef: nil)
-                    let recordInFb = ["\(key)": post.toDict()]
-                    self.rootRef.updateChildValues(recordInFb)
-                }
-            }
-  
-        }else{
-            let post = Post(title: titlePostTxt.text!,
-                            description: textPostTxt.text!,
-                            photo: "",
-                            lat: latPostTxt.text!,
-                            lng: lngPostTxt.text!,
-                            useruid: useruid!,
-                            published: self.isReadyToPublish,
-                            rating: 0,
-                            userRef: nil)
-            let recordInFb = ["\(key)": post.toDict()]
-            rootRef.updateChildValues(recordInFb)
+            let d = UIImagePNGRepresentation(image) {
+                data = d
         }
         
-        
+        doneButton.isEnabled = false
+        PostModel.savePost(post: post, imageData: data, completion: { (ret) in
+            print(ret.done.description,ret.message)
+            self.doneButton.isEnabled = true
+            self.navigationController?.popViewController(animated: true)
+        })
         
     }
     /*

@@ -13,7 +13,6 @@ class MainTimeLine: UITableViewController {
 
     var model: [Post] = []
     let cellIdentier = "POSTSCELL"
-    let db = Post.getAllPostReference()
     
     @IBOutlet weak var addPost: UIBarButtonItem!
     
@@ -22,17 +21,14 @@ class MainTimeLine: UITableViewController {
 
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        //self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.refreshControl?.addTarget(self, action: #selector(hadleRefresh(_:)), for: UIControlEvents.valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        Post.getPosts(reference: db) { (model) in
-            self.model = model
+        PostModel.getAllPosts { (posts) in
+            self.model = posts
             self.tableView.reloadData()
         }
         

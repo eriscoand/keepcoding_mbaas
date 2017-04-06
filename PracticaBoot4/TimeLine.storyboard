@@ -296,6 +296,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="wC1-wP-Sdx" id="TvI-3V-9Kb"/>
                         <outlet property="imagePost" destination="M8z-ex-o2m" id="wjb-5d-bKt"/>
                         <outlet property="latPostTxt" destination="mNl-Dh-JeF" id="MMK-RG-msV"/>
                         <outlet property="lngPostTxt" destination="DBa-vJ-tei" id="CqI-Mu-8Qj"/>

@@ -13,6 +13,8 @@
 		33B75E461E9447BA00B6DCCC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E451E9447BA00B6DCCC /* LoginViewController.swift */; };
 		33B75E481E94556F00B6DCCC /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E471E94556F00B6DCCC /* UIImageView.swift */; };
 		33B75E4A1E94562700B6DCCC /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 33B75E491E94562700B6DCCC /* avatar.png */; };
+		33B75E4E1E958BAF00B6DCCC /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E4D1E958BAF00B6DCCC /* PostModel.swift */; };
+		33B75E501E9592AE00B6DCCC /* Return.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B75E4F1E9592AE00B6DCCC /* Return.swift */; };
 		5D931CE61E83EEEA005051E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D931CE51E83EEEA005051E9 /* AppDelegate.swift */; };
 		5D931CED1E83EEEA005051E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D931CEC1E83EEEA005051E9 /* Assets.xcassets */; };
 		5D931CF01E83EEEA005051E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D931CEE1E83EEEA005051E9 /* LaunchScreen.storyboard */; };
@@ -33,6 +35,8 @@
 		33B75E471E94556F00B6DCCC /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		33B75E491E94562700B6DCCC /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 		33B75E4B1E946A6800B6DCCC /* KeepcodingMBaas.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeepcodingMBaas.entitlements; sourceTree = SOURCE_ROOT; };
+		33B75E4D1E958BAF00B6DCCC /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		33B75E4F1E9592AE00B6DCCC /* Return.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Return.swift; sourceTree = "<group>"; };
 		5D931CE21E83EEEA005051E9 /* KeepcodingMBaas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepcodingMBaas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D931CE51E83EEEA005051E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D931CEC1E83EEEA005051E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,7 +66,8 @@
 		33B75E3D1E92DCCC00B6DCCC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				33B75E3E1E92DCDE00B6DCCC /* Post.swift */,
+				33B75E4C1E958B9E00B6DCCC /* Classes */,
+				33B75E4D1E958BAF00B6DCCC /* PostModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -74,6 +79,15 @@
 				33B75E471E94556F00B6DCCC /* UIImageView.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		33B75E4C1E958B9E00B6DCCC /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				33B75E3E1E92DCDE00B6DCCC /* Post.swift */,
+				33B75E4F1E9592AE00B6DCCC /* Return.swift */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		5D931CD91E83EEEA005051E9 = {
@@ -314,12 +328,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D931D051E83F773005051E9 /* AuthorPostList.swift in Sources */,
+				33B75E4E1E958BAF00B6DCCC /* PostModel.swift in Sources */,
 				33B75E481E94556F00B6DCCC /* UIImageView.swift in Sources */,
 				5D931CE61E83EEEA005051E9 /* AppDelegate.swift in Sources */,
 				5D931D031E83F67C005051E9 /* PostReview.swift in Sources */,
 				33B75E421E92E57E00B6DCCC /* NSObject.swift in Sources */,
 				33B75E461E9447BA00B6DCCC /* LoginViewController.swift in Sources */,
 				33B75E3F1E92DCDE00B6DCCC /* Post.swift in Sources */,
+				33B75E501E9592AE00B6DCCC /* Return.swift in Sources */,
 				5D931D071E83F7BA005051E9 /* NewPostController.swift in Sources */,
 				5D931D011E83F5D1005051E9 /* MainTimeLine.swift in Sources */,
 			);
