@@ -60,8 +60,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
                         lat: self.latPostTxt.text!,
                         lng: self.lngPostTxt.text!,
                         useruid: (FIRAuth.auth()?.currentUser?.uid.description)!,
-                        published: self.isReadyToPublish,
-                        rating: 0)
+                        published: self.isReadyToPublish)
         
         var data = Data.init()
         if let image = imagePost.image,
@@ -71,7 +70,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         doneButton.isEnabled = false
         PostModel.savePost(post: post, imageData: data, completion: { (ret) in
-            print(ret.done.description,ret.message)
+            print(ret.description)
             self.doneButton.isEnabled = true
             self.navigationController?.popViewController(animated: true)
         })

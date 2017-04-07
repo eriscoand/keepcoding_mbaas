@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Return {
+struct Return {
     
     var done: Bool
     var message: String
@@ -16,6 +16,14 @@ class Return {
     init(done: Bool, message: String){
         self.done = done
         self.message = message
+    }
+    
+    var description : String {
+        if self.done {
+            return "Operation successful: " + self.message
+        }else{
+            return "Operation error: " + self.message
+        }
     }
     
 }

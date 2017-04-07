@@ -9,28 +9,26 @@
 import Foundation
 import UIKit
 
-let imageCache = NSCache<AnyObject, AnyObject>()
-
 extension UIImageView {
     public func imageFromServerURL(urlString: String) {
         
-        if let cachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
-            self.image = cachedImage
-            return
+        let image = UIImage(named: "avatar.png")
+        self.image = image
+        
+        if urlString != "" {
+            DispatchQueue.global().async {
+                do{
+                    let d = try getFileFrom(urlString: urlString)
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: d)
+                        self.image = image
+                    }
+                }catch{
+                    
+                }
+            }
         }
         
-        URLSession.shared.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in
-            
-            if error != nil {
-                print(error ?? "error")
-                return
-            }
-            DispatchQueue.main.async(execute: { () -> Void in
-                let image = UIImage(data: data!)
-                self.image = image
-            })
-            
-        }).resume()
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PostReview: UIViewController {
 
@@ -19,8 +20,24 @@ class PostReview: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        rateSlider.isEnabled = false
+        postTxt.isEnabled = false
+        titleTxt.isEnabled = false
+        
+        if let p = post,
+            let currentUser = FIRAuth.auth()?.currentUser{
+            titleTxt.text = p.title
+            postTxt.text = p.description
+            
+            PostModel.getUserRating(post: p.cloudRef!, user: currentUser.uid, completion: { (rating) in
+                self.rateSlider.value = Float(rating)
+                self.rateSlider.isEnabled = true
+            })
+            
+            imagePost.imageFromServerURL(urlString: p.photo)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,10 +46,22 @@ class PostReview: UIViewController {
     }
     
     @IBAction func rateAction(_ sender: Any) {
-        print("\((sender as! UISlider).value)")
+        //print("\((sender as! UISlider).value)")
     }
 
     @IBAction func ratePost(_ sender: Any) {
+        
+        if let p = post,
+            let currentUser = FIRAuth.auth()?.currentUser{
+            
+            PostModel.saveRating(post: p.cloudRef!, user: currentUser.uid, rating: Int(rateSlider.value), completion: { (ret) in
+                print(ret.description)
+            })
+            
+            
+        }
+        
+        
     }
     /*
     // MARK: - Navigation

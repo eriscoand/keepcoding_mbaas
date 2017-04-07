@@ -27,7 +27,7 @@ class MainTimeLine: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        PostModel.getAllPosts { (posts) in
+        PostModel.observePostValues(event: .value) { (posts) in
             self.model = posts
             self.tableView.reloadData()
         }
@@ -61,9 +61,18 @@ class MainTimeLine: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentier, for: indexPath)
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentier)
 
-        cell.textLabel?.text = model[indexPath.row].title
+        let post: Post = model[indexPath.row]
+        
+        cell.textLabel?.text = post.title
+        
+        var averageRating = 0
+        if post.totalRated > 0 {
+            averageRating = post.totalRating / post.totalRated
+        }
+        
+        cell.detailTextLabel?.text = "Average rating: " + averageRating.description
 
         return cell
     }

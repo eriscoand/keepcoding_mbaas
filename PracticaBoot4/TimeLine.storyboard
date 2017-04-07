@@ -30,6 +30,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="facebookLoginButton:" destination="keC-4w-SPb" eventType="touchUpInside" id="HT0-3v-9kH"/>
                                     <action selector="signOutButton:" destination="keC-4w-SPb" eventType="touchUpInside" id="cfq-jX-lfI"/>
                                 </connections>
                             </button>
@@ -117,7 +118,8 @@
                     <navigationItem key="navigationItem" id="yMV-An-MNP">
                         <barButtonItem key="leftBarButtonItem" title="Login" id="eaw-2k-r5L">
                             <connections>
-                                <segue destination="keC-4w-SPb" kind="show" identifier="loginSegue" id="6n9-g2-SSX"/>
+                                <action selector="loginButtonClicked:" destination="93k-iG-gRG" id="ZRU-i7-K9d"/>
+                                <segue destination="keC-4w-SPb" kind="show" identifier="loginSegue" id="5m5-Vq-ztu"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" style="done" systemItem="compose" id="J3K-Up-OeR">
@@ -131,7 +133,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
-                        <outlet property="addPost" destination="J3K-Up-OeR" id="3vf-TV-PR8"/>
+                        <outlet property="addPost" destination="J3K-Up-OeR" id="HMV-0i-AKg"/>
                         <segue destination="RLF-Vz-fF2" kind="show" identifier="ShowRatingPost" id="6hQ-sq-vMN"/>
                     </connections>
                 </tableViewController>
@@ -296,7 +298,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="doneButton" destination="wC1-wP-Sdx" id="TvI-3V-9Kb"/>
+                        <outlet property="doneButton" destination="wC1-wP-Sdx" id="7ZM-As-3t7"/>
                         <outlet property="imagePost" destination="M8z-ex-o2m" id="wjb-5d-bKt"/>
                         <outlet property="latPostTxt" destination="mNl-Dh-JeF" id="MMK-RG-msV"/>
                         <outlet property="lngPostTxt" destination="DBa-vJ-tei" id="CqI-Mu-8Qj"/>

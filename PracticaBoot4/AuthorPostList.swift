@@ -16,12 +16,6 @@ class AuthorPostList: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        //self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.refreshControl?.addTarget(self, action: #selector(hadleRefresh(_:)), for: UIControlEvents.valueChanged)
     }
@@ -30,7 +24,11 @@ class AuthorPostList: UITableViewController {
         super.viewWillAppear(true)
         
         if let useruid = FIRAuth.auth()?.currentUser?.uid {
-            PostModel.getAllPostsByUser(useruid: useruid) { (posts) in
+            PostModel.observeUserPostValues(event: .value, useruid: useruid) { (posts) in
+                self.model = posts
+                self.tableView.reloadData()
+            }
+            PostModel.observeUserPostValues(event: .childRemoved, useruid: useruid) { (posts) in
                 self.model = posts
                 self.tableView.reloadData()
             }
@@ -63,9 +61,6 @@ class AuthorPostList: UITableViewController {
         
         let post = model[indexPath.row]
         cell.textLabel?.text = post.title
-        if post.photo != "" {
-            cell.imageView?.imageFromServerURL(urlString: post.photo)
-        }
     
         return cell
     }
@@ -81,14 +76,14 @@ class AuthorPostList: UITableViewController {
         let publish = UITableViewRowAction(style: .normal, title: "Publicar") { (action, indexPath) in
             post.published = true
             PostModel.savePost(post: post, imageData: Data(), completion: { (ret) in
-                print(ret.done,ret.message)
+                print(ret.description)
             })
         }
         publish.backgroundColor = UIColor.green
         
         let deleteRow = UITableViewRowAction(style: .destructive, title: "Eliminar") { (action, indexPath) in
             PostModel.deletePost(post: post, completion: { (ret) in
-                print(ret.done,ret.message)
+                print(ret.description)
             })
         }
         return [publish, deleteRow]
