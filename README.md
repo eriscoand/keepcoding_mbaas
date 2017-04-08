@@ -7,3 +7,19 @@
 - Image Saving to device only the first loading time
 - Change post state to published
 - Delete post
+
+- Added Firebase Cloud Messaging. You can only send push notifications from Firebase Console
+
+## Realtime Database RULES
+
+```JSON
+{
+  "rules": {
+    ".read": "true",
+    ".write": "true",
+    "Post": {
+      ".indexOn": ["creationDate", "userid", "published"]
+    }
+  },
+}
+```

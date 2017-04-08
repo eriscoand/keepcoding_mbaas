@@ -60,6 +60,9 @@ class LoginViewController: UIViewController {
                 
                 FIRAnalytics.logEvent(withName: "FacebookLogin", parameters: nil)
                 
+                //SUBSCRIBE TO USER TOPIC TO RECEIVE POST RATED BY OTHER USERS!
+                FIRMessaging.messaging().subscribe(toTopic: (FIRAuth.auth()?.currentUser?.uid)!)
+                
                 DispatchQueue.main.async {
                     self.reloadUI()
                 }

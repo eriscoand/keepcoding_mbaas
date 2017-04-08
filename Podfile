@@ -10,6 +10,7 @@ target 'KeepcodingMBaas' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'Firebase/Messaging'
   
   # Pods for Facebook
   pod 'Bolts'

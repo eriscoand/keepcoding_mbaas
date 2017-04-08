@@ -67,7 +67,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
                         email: (FIRAuth.auth()?.currentUser?.email)!)
         
         
-        FIRAnalytics.logEvent(withName: "PostCreation", parameters: ["user": post.useruid as! NSObject, "post": post.title as NSObject])
+        FIRAnalytics.logEvent(withName: "PostDeleted", parameters: ["user": post.useruid as! NSObject, "post": post.title as NSObject])
         
         var data = Data.init()
         if let image = imagePost.image,
