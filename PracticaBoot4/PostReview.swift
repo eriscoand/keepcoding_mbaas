@@ -21,6 +21,8 @@ class PostReview: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FIRAnalytics.setScreenName("Post Review Screen", screenClass: "PostReview")
+        
         rateSlider.isEnabled = false
         postTxt.isEnabled = false
         titleTxt.isEnabled = false
@@ -28,7 +30,7 @@ class PostReview: UIViewController {
         if let p = post,
             let currentUser = FIRAuth.auth()?.currentUser{
             titleTxt.text = p.title
-            postTxt.text = p.description
+            postTxt.text = p.desc
             
             PostModel.getUserRating(post: p.cloudRef!, user: currentUser.uid, completion: { (rating) in
                 self.rateSlider.value = Float(rating)
@@ -54,7 +56,9 @@ class PostReview: UIViewController {
         if let p = post,
             let currentUser = FIRAuth.auth()?.currentUser{
             
-            PostModel.saveRating(post: p.cloudRef!, user: currentUser.uid, rating: Int(rateSlider.value), completion: { (ret) in
+            FIRAnalytics.logEvent(withName: "RatingPost", parameters: ["user": currentUser.email as! NSObject, "post": post.title as NSObject])
+            
+            PostModel.saveRating(postCloudRef: p.cloudRef!, useruid: currentUser.uid, ratingValue: Int(rateSlider.value), completion: { (ret) in
                 print(ret.description)
             })
             

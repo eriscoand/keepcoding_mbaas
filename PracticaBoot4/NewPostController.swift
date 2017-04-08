@@ -37,6 +37,8 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FIRAnalytics.setScreenName("New Post Screen", screenClass: "NewPostController")
 
         handleLocation()
     }
@@ -49,6 +51,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBAction func takePhoto(_ sender: Any) {
         self.present(pushAlertCameraLibrary(), animated: true, completion: nil)
     }
+    
     @IBAction func publishAction(_ sender: Any) {
         isReadyToPublish = (sender as! UISwitch).isOn
     }
@@ -56,11 +59,15 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBAction func savePostInCloud(_ sender: Any) {
         
         let post = Post(title: self.titlePostTxt.text!,
-                        description: self.textPostTxt.text!,
+                        desc: self.textPostTxt.text!,
                         lat: self.latPostTxt.text!,
                         lng: self.lngPostTxt.text!,
                         useruid: (FIRAuth.auth()?.currentUser?.uid.description)!,
-                        published: self.isReadyToPublish)
+                        published: self.isReadyToPublish,
+                        email: (FIRAuth.auth()?.currentUser?.email)!)
+        
+        
+        FIRAnalytics.logEvent(withName: "PostCreation", parameters: ["user": post.useruid as! NSObject, "post": post.title as NSObject])
         
         var data = Data.init()
         if let image = imagePost.image,
@@ -76,15 +83,6 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         })
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: - funciones para la camara
     internal func pushAlertCameraLibrary() -> UIAlertController {

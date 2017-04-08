@@ -30,8 +30,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="facebookLoginButton:" destination="keC-4w-SPb" eventType="touchUpInside" id="HT0-3v-9kH"/>
-                                    <action selector="signOutButton:" destination="keC-4w-SPb" eventType="touchUpInside" id="cfq-jX-lfI"/>
+                                    <action selector="signOutButtonClicked:" destination="keC-4w-SPb" eventType="touchUpInside" id="U3a-7h-fDj"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WR5-EV-Dgj">

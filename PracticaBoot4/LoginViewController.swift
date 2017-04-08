@@ -18,7 +18,9 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        FIRAnalytics.setScreenName("Login Screen", screenClass: "LoginViewController")
+        
         reloadUI()
         // Do any additional setup after loading the view.
     }
@@ -29,6 +31,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func facebookLoginButton(_ sender: Any) {
+        
         let fbLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self) { (result, error) in
             if let error = error {
@@ -55,18 +58,23 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
+                FIRAnalytics.logEvent(withName: "FacebookLogin", parameters: nil)
+                
                 DispatchQueue.main.async {
                     self.reloadUI()
                 }
                 
             })
             
-        }   
+        }
     }
 
-    @IBAction func signOutButton(_ sender: Any) {
+    @IBAction func signOutButtonClicked(_ sender: Any) {
         do{
             try FIRAuth.auth()?.signOut()
+            
+            FIRAnalytics.logEvent(withName: "FacebookSignOut", parameters: nil)
+            
         }catch{
             
         }
@@ -75,6 +83,7 @@ class LoginViewController: UIViewController {
     
     func reloadUI(){
         if let currentUser = FIRAuth.auth()?.currentUser {
+            
             usernameLabel.text = currentUser.displayName
             uuidLabel.text = currentUser.uid
             

@@ -17,6 +17,8 @@ class AuthorPostList: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FIRAnalytics.setScreenName("Author Post List Screen", screenClass: "AuthorPostList")
+        
         self.refreshControl?.addTarget(self, action: #selector(hadleRefresh(_:)), for: UIControlEvents.valueChanged)
     }
     
@@ -74,9 +76,11 @@ class AuthorPostList: UITableViewController {
         let post = self.model[indexPath.row] as Post
         
         let publish = UITableViewRowAction(style: .normal, title: "Publicar") { (action, indexPath) in
-            post.published = true
-            PostModel.savePost(post: post, imageData: Data(), completion: { (ret) in
+            PostModel.publishPost(postuid: post.cloudRef!, completion: { (ret) in
                 print(ret.description)
+                
+                FIRAnalytics.logEvent(withName: "PostPublished", parameters: ["user": post.useruid as! NSObject, "post": post.title as NSObject])
+                
             })
         }
         publish.backgroundColor = UIColor.green
@@ -84,6 +88,9 @@ class AuthorPostList: UITableViewController {
         let deleteRow = UITableViewRowAction(style: .destructive, title: "Eliminar") { (action, indexPath) in
             PostModel.deletePost(post: post, completion: { (ret) in
                 print(ret.description)
+                
+                FIRAnalytics.logEvent(withName: "PostDeleted", parameters: ["user": post.useruid as! NSObject, "post": post.title as NSObject])
+                
             })
         }
         return [publish, deleteRow]

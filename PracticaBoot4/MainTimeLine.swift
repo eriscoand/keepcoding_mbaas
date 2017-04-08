@@ -18,6 +18,8 @@ class MainTimeLine: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FIRAnalytics.setScreenName("Initial Screen", screenClass: "MainTimeLine")
 
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
@@ -72,7 +74,9 @@ class MainTimeLine: UITableViewController {
             averageRating = post.totalRating / post.totalRated
         }
         
-        cell.detailTextLabel?.text = "Average rating: " + averageRating.description
+        cell.imageView?.imageFromServerURL(urlString: post.photo)
+        
+        cell.detailTextLabel?.text = "[" + post.email + "] Average rating: " + averageRating.description
 
         return cell
     }

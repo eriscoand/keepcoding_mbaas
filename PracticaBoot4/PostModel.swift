@@ -17,23 +17,21 @@ let posts = FIRDatabase.database().reference().child(Post.className)
 
 class PostModel{
     
-    public static func observePostValues(event: FIRDataEventType, completion: @escaping CompletionPostList){
+    class func observePostValues(event: FIRDataEventType, completion: @escaping CompletionPostList){
         let query = posts.queryOrdered(byChild: "published").queryEqual(toValue : true)
         fetch(query: query, event: event) { (posts) in
             completion(posts)
         }
     }
     
-    public static func observeUserPostValues(event: FIRDataEventType, useruid: String, completion: @escaping CompletionPostList){
+    class func observeUserPostValues(event: FIRDataEventType, useruid: String, completion: @escaping CompletionPostList){
         let query = posts.queryOrdered(byChild: "useruid").queryEqual(toValue : useruid)
         fetch(query: query, event: event) { (posts) in
             completion(posts)
         }
     }
     
-    public static func savePost(post: Post, imageData: Data, completion: @escaping CompletionReturn){
-        
-        let query = posts.child(post.cloudRef == nil ? "0" : post.cloudRef!)
+    class func savePost(post: Post, imageData: Data, completion: @escaping CompletionReturn){
         
         saveImage(imageData: imageData as NSData) { (photo) in
             
@@ -41,44 +39,32 @@ class PostModel{
                 post.photo = photo
             }
             
-            query.observeSingleEvent(of: .value, with: { (snapshot) in
-                
-                //UPDATING POST
-                if snapshot.hasChildren() {
-                    var post_firebase = Post.init(snapshot: snapshot)
-                    post_firebase = Post(post: post, cloudRef: post_firebase.cloudRef!)
-                    let cloudRef = post_firebase.cloudRef!
-                    let recordInFb = ["\(cloudRef)": post_firebase.toDict()]
-                    posts.updateChildValues(recordInFb)
-                }else{
-                    //CREATING POST
-                    let key = posts.childByAutoId().key
-                    let recordInFb = ["\(key)": post.toDict()]
-                    posts.updateChildValues(recordInFb)
-                }
-                
-                query.removeAllObservers()
-                
-                DispatchQueue.main.async {
-                    completion(Return(done: true, message: "Post saved"))
-                }
-                
-            })
+            let key = posts.childByAutoId().key
+            let post_firebase = ["\(key)": post.toDict()]
+            posts.updateChildValues(post_firebase)
+            
+            DispatchQueue.main.async {
+                completion(Return(done: true, message: "Post saved"))
+            }
             
         }
         
     }
     
-    public static func deletePost(post: Post, completion: @escaping CompletionReturn){
-        let query = posts.child(post.cloudRef!)
-        query.removeValue(completionBlock: { (error, ref) in
+    class func publishPost(postuid: String, completion: @escaping CompletionReturn){
+        
+        posts.child(postuid).child("published").setValue(true)
+        completion(Return(done: true, message: "Post published"))
+        
+    }
+    
+    class func deletePost(post: Post, completion: @escaping CompletionReturn){
+        posts.child(post.cloudRef!).removeValue(completionBlock: { (error, ref) in
             
             var ret = Return(done: true, message: "Post deleted")
             if let error = error {
                 ret = Return(done: false,message: error.localizedDescription)
             }
-            
-            query.removeAllObservers()
             
             DispatchQueue.main.async {
                 completion(ret)
@@ -87,15 +73,14 @@ class PostModel{
         })
     }
     
-    private static func fetch(query: FIRDatabaseQuery, event: FIRDataEventType, completion: @escaping CompletionPostList){
+    private class func fetch(query: FIRDatabaseQuery, event: FIRDataEventType, completion: @escaping CompletionPostList){
 
         query.observe(event, with: { (snapshot) in
             
             var model: [Post] = []
     
             for child in snapshot.children {
-                if let snapshot = child as? FIRDataSnapshot,
-                    snapshot.hasChildren() {
+                if let snapshot = child as? FIRDataSnapshot, snapshot.hasChildren() {
                     let post = Post.init(snapshot: snapshot)
                     model.append(post)
                 }
@@ -113,7 +98,7 @@ class PostModel{
 
     }
     
-    public static func getUserRating(post: String, user: String, completion: @escaping (Int) -> ()){
+    class func getUserRating(post: String, user: String, completion: @escaping (Int) -> ()){
         
         let query = posts.child(post).child("ratings").child(user)
         
@@ -121,55 +106,55 @@ class PostModel{
             
             query.removeAllObservers()
             
-            var value = 0
-            if let number = Int(String(describing: snapshot.value)) {
-                value = number
-            }
-            
             DispatchQueue.main.async {
-                completion(value)
+                if !(snapshot.value is NSNull) {
+                    completion(snapshot.value as! Int)
+                }else{
+                    completion(0)
+                }
             }
             
         })
         
     }
     
-    public static func saveRating(post: String, user: String, rating: Int,  completion: @escaping CompletionReturn){
+    class func saveRating(postCloudRef: String, useruid: String, ratingValue: Int,  completion: @escaping CompletionReturn){
         
-        let ratings = posts.child(post).child("ratings")
+        let postFetch = posts.child(postCloudRef)
         
-        ratings.observeSingleEvent(of: .value, with: { (snapshot) in
+        let rating = ["\(useruid)": ratingValue]
+        postFetch.child("ratings").updateChildValues(rating)
+        
+        postFetch.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            let ratingInFb = ["\(user)": rating.description]
-            ratings.updateChildValues(ratingInFb)
+            postFetch.removeAllObservers()
             
-            DispatchQueue.main.async {
-                completion(Return(done: true, message: "Rating saved"))
+            if snapshot.hasChildren() {
+                let post_firebase = Post.init(snapshot: snapshot)
+                
+                //TODO -- ESTO LO TENDRIA QUE HACER EL BACKEND!!!
+                post_firebase.totalRated = 0
+                post_firebase.totalRating = 0
+                if let ratings = post_firebase.ratings {
+                    for rating in ratings {
+                        post_firebase.totalRated += 1
+                        post_firebase.totalRating += rating.rating
+                    }
+                }
+                
+                posts.child(postCloudRef).child("totalRated").setValue(post_firebase.totalRated)
+                posts.child(postCloudRef).child("totalRating").setValue(post_firebase.totalRating)
+                
+                DispatchQueue.main.async {
+                    completion(Return(done: true, message: "Rating saved"))
+                }
+                
             }
-            
         })
         
     }
     
-    public static func updateAverage(post: String, rating: Int, completion: @escaping CompletionReturn){
-        
-        let postRated = posts.child(post)
-        postRated.observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let post_firebase = Post.init(snapshot: snapshot)
-            
-            post_firebase.totalRated += 1
-            post_firebase.totalRating += rating
-            
-            let cloudRef = post_firebase.cloudRef!
-            let postInFb = ["\(cloudRef)": post_firebase.toDict()]
-            posts.updateChildValues(postInFb)
-            
-        })
-        
-    }
-    
-    private static func saveImage(imageData: NSData, completion: @escaping (String) -> ()){
+    private class func saveImage(imageData: NSData, completion: @escaping (String) -> ()){
         
         if imageData.length == 0 {
             completion("")
@@ -182,7 +167,6 @@ class PostModel{
                 if let url = metadata?.downloadURL()?.absoluteString {
                     completion(url)
                 }
-                
                 
             }
         }
