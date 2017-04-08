@@ -8,7 +8,7 @@
 - Change post state to published
 - Delete post
 - Firebase Analytics working
-- Added Firebase Cloud Messaging. You can only send push notifications from Firebase Console
+- Added Firebase Cloud Messaging. You can only send push notifications from Firebase Console (Test on a real device)
 
 ## Realtime Database RULES
 
